@@ -42,8 +42,6 @@ Frontend → Backend (JWT Auth API) → Database
 ### **Frontend (Built)**
 
 * React.js
-* React Router
-* Axios
 * TailwindCSS
 
 ### **Backend (Built)**
@@ -55,7 +53,7 @@ Frontend → Backend (JWT Auth API) → Database
 
 ### **Database**
 
-* MongoDB / PostgreSQL (whichever you're using)
+* PostgreSQL 
 
 ---
 
@@ -98,10 +96,10 @@ Frontend → Backend (JWT Auth API) → Database
 
 | Layer    | Tech                                       |
 | -------- | ------------------------------------------ |
-| Frontend | React.js, TailwindCSS, Axios, React Router |
+| Frontend | React.js, TailwindCSS                      |
 | Backend  | Node.js, Express.js                        |
 | Auth     | JWT, bcrypt                                |
-| DB       | MongoDB / PostgreSQL                       |
+| DB       | PostgreSQL                                 |
 | Hosting  | Vercel / Render                            |
 
 ---
@@ -140,3 +138,4 @@ npm run dev
 ```
 
 ---
+
