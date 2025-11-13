@@ -46,7 +46,7 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Find user by email
+
     const user = await prisma.user.findUnique({
       where: { email }
     });
@@ -55,14 +55,14 @@ const login = async (req, res) => {
       return res.status(422).json({ message: "User does not exists" });
     }
 
-    // Verify password
+
     const isPasswordMatch = bcrypt.compareSync(password, user.password);
 
     if (!isPasswordMatch) {
       return res.status(401).json({ message: "Password is incorrect." });
     }
 
-    // Generate JWT token
+
     const token = jwt.sign({ email: user.email }, process.env.SECRET_KEY);
 
     return res.status(200).json({ 

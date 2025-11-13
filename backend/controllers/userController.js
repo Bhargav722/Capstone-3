@@ -1,6 +1,5 @@
-// User controller
-const prisma = require('../config/database');
 
+const prisma = require('../config/database');
 const getUsers = async (req, res) => {
   try {
     const users = await prisma.user.findMany({
@@ -18,7 +17,6 @@ const getUsers = async (req, res) => {
     return res.status(500).json({ message: "Something went wrong" });
   }
 };
-
 const getProfile = async (req, res) => {
   try {
     const user = await prisma.user.findUnique({
