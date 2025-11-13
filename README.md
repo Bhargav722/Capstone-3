@@ -139,3 +139,8 @@ npm run dev
 
 ---
 
+
+Frontend :- https://cap-3-evara.vercel.app/
+backend :- https://cap-3-evara-1.onrender.com
+
+
