@@ -1,163 +1,115 @@
 import { useState, useEffect } from "react";
 import "./index.css";
-import axios from "axios";
+import Login from "./components/auth/Login";
+import Signup from "./components/auth/Signup";
+import Dashboard from "./components/dashboard/Dashboard";
+import { authAPI, tokenManager } from "./services/api";
 
 export default function App() {
-  const [view, setView] = useState("login"); // login | signup | users
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
-  const [users, setUsers] = useState([]);
+  const [view, setView] = useState("login"); // login | signup | dashboard
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
+  // Check if user is already logged in on mount
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) setView("users");
+    const checkAuth = async () => {
+      if (tokenManager.hasToken()) {
+        try {
+          const user = await authAPI.getProfile();
+          setCurrentUser(user);
+          setView("dashboard");
+        } catch (error) {
+          console.error("Auth check failed:", error);
+          tokenManager.removeToken();
+          setView("login");
+        }
+      }
+      setLoading(false);
+    };
+
+    checkAuth();
   }, []);
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSignup = async (e) => {
-    e.preventDefault();
+  const handleLoginSuccess = async () => {
     try {
-      const response = await fetch('/api/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
-      const data = await response.json();
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-        setView("users");
-      } else {
-        alert(data.message);
-      }
-    } catch (err) {
-      console.error(err);
+      const user = await authAPI.getProfile();
+      setCurrentUser(user);
+      setView("dashboard");
+    } catch (error) {
+      console.error("Failed to fetch profile after login:", error);
+      alert("Login successful but failed to load profile. Please try again.");
     }
   };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleSignupSuccess = async () => {
     try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
-      const data = await response.json();
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-        setView("users");
-      } else {
-        alert(data.message);
-      }
-    } catch (err) {
-      console.error(err);
+      const user = await authAPI.getProfile();
+      setCurrentUser(user);
+      setView("dashboard");
+    } catch (error) {
+      console.error("Failed to fetch profile after signup:", error);
+      alert("Account created but failed to load profile. Please try logging in.");
     }
   };
-
-  const fetchUsers = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await fetch('/api/users', {
-        headers: { 'Authorization': `Bearer ${token}` },
-      });
-      const data = await response.json();
-      setUsers(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    if (view === "users") {
-      fetchUsers();
-    }
-  }, [view]);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    tokenManager.removeToken();
+    setCurrentUser(null);
     setView("login");
   };
 
+  const switchToSignup = () => {
+    setView("signup");
+  };
+
+  const switchToLogin = () => {
+    setView("login");
+  };
+
+  // Show loading state while checking authentication
+  if (loading) {
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #FED0BB 0%, #FCB9B2 100%)',
+      }}>
+        <div style={{
+          fontFamily: 'Playfair Display, serif',
+          fontSize: '1.5rem',
+          color: '#461220',
+        }}>
+          Loading...
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="container">
-      <h1>Auth App</h1>
-
-      {view === "signup" && (
-        <form onSubmit={handleSignup}>
-          <h2>Signup</h2>
-          <input
-            name="name"
-            placeholder="Name"
-            value={form.name}
-            onChange={handleChange}
-          />
-          <input
-            name="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={handleChange}
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={form.password}
-            onChange={handleChange}
-          />
-          <button type="submit">Signup</button>
-          <p>
-            Already have an account?{" "}
-            <span className="link" onClick={() => setView("login")}>
-              Login
-            </span>
-          </p>
-        </form>
-      )}
-
-      {view === "login" && (
-        <form onSubmit={handleLogin}>
-          <h2>Login</h2>
-          <input
-            name="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={handleChange}
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={form.password}
-            onChange={handleChange}
-          />
-          <button type="submit">Login</button>
-          <p>
-            Don’t have an account?{" "}
-            <span className="link" onClick={() => setView("signup")}>
-              Signup
-            </span>
-          </p>
-        </form>
-      )}
-
-      {view === "users" && (
-        <div>
-          <h2>Users List</h2>
-          <button className="logout" onClick={handleLogout}>
-            Logout
-          </button>
-          <ul>
-            {users.map((u) => (
-              <li key={u.id}>
-                {u.name} — {u.email}
-              </li>
-            ))}
-          </ul>
+    <>
+      {view === "dashboard" && currentUser ? (
+        <Dashboard user={currentUser} onLogout={handleLogout} />
+      ) : (
+        <div className="auth-container">
+          <div className="auth-left-panel"></div>
+          <div className="confetti-background"></div>
+          <div className="auth-card">
+            {view === "login" ? (
+              <Login 
+                onLoginSuccess={handleLoginSuccess}
+                onSwitchToSignup={switchToSignup}
+              />
+            ) : (
+              <Signup 
+                onSignupSuccess={handleSignupSuccess}
+                onSwitchToLogin={switchToLogin}
+              />
+            )}
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
