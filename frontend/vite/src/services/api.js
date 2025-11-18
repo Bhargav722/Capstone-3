@@ -1,7 +1,7 @@
 // API service for backend communication
 
 // Backend URL - change this to your backend URL
-const BACKEND_URL = import.meta.env.VITE_API_URL || 'https://fintrack-api.onrender.com';
+const BACKEND_URL = import.meta.env.VITE_API_URL || 'https://capstone-3-tokk.onrender.com';
 const API_BASE_URL = `${BACKEND_URL}`;
 
 // Helper function to get auth token

@@ -10,6 +10,7 @@ const allowedOrigins = [
   process.env.FRONTEND_URL,
   'https://fintrack-app.vercel.app',
   'https://fintrackapp.vercel.app',
+  'https://capstone-3-lemon.vercel.app',
   'http://localhost:5173',
   'http://localhost:5174'
 ].filter(Boolean);
