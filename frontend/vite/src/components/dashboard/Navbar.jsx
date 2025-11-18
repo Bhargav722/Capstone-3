@@ -14,7 +14,7 @@ const Navbar = ({ user, onLogout }) => {
 
   return (
     <nav className="navbar">
-      <div className="navbar-brand">Evara</div>
+      <div className="navbar-brand">FinTrack</div>
       <div className="navbar-profile">
         <button className="profile-button" onClick={toggleProfileDropdown}>
           <div className="profile-avatar">

@@ -74,12 +74,13 @@ export default function App() {
         justifyContent: 'center',
         alignItems: 'center',
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #FED0BB 0%, #FCB9B2 100%)',
+        background: '#000000',
       }}>
         <div style={{
           fontFamily: 'Playfair Display, serif',
           fontSize: '1.5rem',
-          color: '#461220',
+          color: '#f5f5f5',
+          letterSpacing: '0.05em'
         }}>
           Loading...
         </div>
@@ -93,8 +94,6 @@ export default function App() {
         <Dashboard user={currentUser} onLogout={handleLogout} />
       ) : (
         <div className="auth-container">
-          <div className="auth-left-panel"></div>
-          <div className="confetti-background"></div>
           <div className="auth-card">
             {view === "login" ? (
               <Login 

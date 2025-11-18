@@ -1,6 +1,5 @@
-Evara is the early-stage MVP of a future full-scale event management platform.
-Right now, the project includes **JWT authentication** and a **basic user dashboard after login**.
-The goal is to gradually expand into vendor management, event planning, and AI-driven recommendations.
+FinTrack is the early-stage MVP of a future full-scale personal finance platform.  
+Right now, the project includes **JWT authentication** and a **lightweight dashboard** that appears after a successful sign-in.
 
 ---
 
@@ -13,23 +12,22 @@ The goal is to gradually expand into vendor management, event planning, and AI-d
 * Password hashing (bcrypt)
 * JWT token generation
 * Protected routes using middleware
-* Role support structure (future use)
+* Role support scaffolding (not yet exposed)
 
 ### ✅ **Basic Dashboard After Login**
 
 * Redirects to dashboard upon successful authentication
 * Dashboard shows user info fetched from protected API
-* Basic navigation layout created
+* Placeholder widgets for budgeting/insights
 
 ### ❌ **Not Built Yet (Planned)**
 
-* Vendor system
-* Venue system
-* Event booking
-* Sorting / filtering logic
-* Admin panel
-* Payments
-* AI integrations
+* Budget + category management
+* Expense & income timelines
+* Insights/AI-driven nudges
+* Savings goals & automation
+* Multi-profile support
+* Payment integrations
 
 ---
 
@@ -41,8 +39,8 @@ Frontend → Backend (JWT Auth API) → Database
 
 ### **Frontend (Built)**
 
-* React.js
-* TailwindCSS
+* React + Vite
+* Vanilla CSS (custom themes)
 
 ### **Backend (Built)**
 
@@ -69,7 +67,7 @@ Frontend → Backend (JWT Auth API) → Database
 
 ### **📌 Dashboard**
 
-* Simple UI
+* Simple UI shell
 * Fetches user profile from backend
 * Only accessible after authentication
 
@@ -96,7 +94,7 @@ Frontend → Backend (JWT Auth API) → Database
 
 | Layer    | Tech                                       |
 | -------- | ------------------------------------------ |
-| Frontend | React.js, TailwindCSS                      |
+| Frontend | React (Vite), Vanilla CSS                  |
 | Backend  | Node.js, Express.js                        |
 | Auth     | JWT, bcrypt                                |
 | DB       | PostgreSQL                                 |
@@ -106,16 +104,14 @@ Frontend → Backend (JWT Auth API) → Database
 
 ## **🚀 Future Roadmap**
 
-You haven't built these yet, but they are your planned next steps:
+Prioritized upgrades for a fuller FinTrack experience:
 
-* Vendor & Venue CRUD
-* Event booking system
-* Search, sort, filter
-* Pagination
-* Admin dashboard
-* Vendor dashboard
-* Payment integration
-* AI-based recommendations
+* Budget + goal creation flows
+* Category-based analytics and trends
+* Recurring reminders for bills/savings
+* Import/export (CSV, Plaid, etc.)
+* Admin tooling & audit logs
+* AI-driven recommendations
 
 ---
 
@@ -129,18 +125,24 @@ npm install
 npm run dev
 ```
 
+Create a `.env` file in `backend/` before starting the server:
+
+```
+DATABASE_URL="postgresql://neondb_owner:***@ep-fancy-violet-a451g6ba-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+SECRET_KEY="replace-with-a-strong-random-string"
+```
+
+The `DATABASE_URL` above is already configured for Neon; feel free to swap it with your own Neon connection string. `SECRET_KEY` powers JWT signing—keep it private and change it in production.
+
 ### **Frontend**
 
 ```bash
-cd frontend
+cd frontend/vite
 npm install
 npm run dev
 ```
 
 ---
 
-
-Frontend :- https://cap-3-evara.vercel.app/
-backend :- https://cap-3-evara-1.onrender.com
-
-
+Frontend: https://fintrack-app.vercel.app/  
+Backend: https://fintrack-api.onrender.com

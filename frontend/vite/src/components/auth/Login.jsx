@@ -40,17 +40,17 @@ const Login = ({ onLoginSuccess, onSwitchToSignup }) => {
 
   return (
     <>
-      <h1 className="auth-title">Welcome Back to Evara</h1>
-      <p className="auth-subtitle">Continue planning your perfect celebration.</p>
+      <h1 className="auth-title">Welcome Back to FinTrack</h1>
+      <p className="auth-subtitle">Stay on top of every transaction and insight.</p>
       
       {error && (
         <div className="error-message" style={{
           padding: '0.75rem 1rem',
           marginBottom: '1rem',
-          background: 'rgba(178, 58, 72, 0.1)',
-          border: '1px solid rgba(178, 58, 72, 0.3)',
+          background: 'rgba(255, 255, 255, 0.4)',
+          border: '1px solid rgba(0, 0, 0, 0.2)',
           borderRadius: '12px',
-          color: '#B23A48',
+          color: '#111',
           fontSize: '0.9rem',
         }}>
           {error}

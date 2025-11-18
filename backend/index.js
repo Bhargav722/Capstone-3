@@ -6,18 +6,29 @@ const routes = require('./routes');
 
 const app = express();
 
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  'https://fintrack-app.vercel.app',
+  'https://fintrackapp.vercel.app',
+  'http://localhost:5173',
+  'http://localhost:5174'
+].filter(Boolean);
 
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
 
-app.use(cors({
-    origin:'https://cap-3-evara.vercel.app' || 'http://localhost:5174',
-    credentials: true
-  }));
-
-
-app.use(cors({
-    origin:'https://cap-3-evara.vercel.app' || 'http://localhost:5174',
-    credentials: true
-  }));
+app.options('*', cors());
 
 
 app.use(express.json());

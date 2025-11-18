@@ -1,4 +1,18 @@
 /* Global Styles */
+:root {
+  --ft-bg: #000000;
+  --ft-bg-alt: #0c0c0c;
+  --ft-text: #0f0f0f;
+  --ft-muted: #555555;
+  --ft-border: rgba(0, 0, 0, 0.15);
+  --ft-border-strong: rgba(0, 0, 0, 0.35);
+  --ft-card-bg: rgba(255, 255, 255, 0.92);
+  --ft-card-blur: blur(24px);
+  --ft-button-dark: #050505;
+  --ft-button-light: #2b2b2b;
+  --ft-highlight: #f0f0f0;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -7,33 +21,16 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: linear-gradient(135deg, #FED0BB 0%, #FCB9B2 100%);
+  background: #000000;
   min-height: 100vh;
-  color: #2B2B2B;
+  color: var(--ft-text);
   overflow-x: hidden;
   position: relative;
 }
 
 /* Confetti/Sparkle Background Pattern */
 .confetti-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.06;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(70, 18, 32, 0.3) 1px, transparent 1px),
-    radial-gradient(circle at 80% 70%, rgba(140, 47, 57, 0.3) 1px, transparent 1px),
-    radial-gradient(circle at 40% 80%, rgba(178, 58, 72, 0.3) 1px, transparent 1px),
-    radial-gradient(circle at 60% 20%, rgba(70, 18, 32, 0.3) 1px, transparent 1px),
-    radial-gradient(circle at 90% 50%, rgba(140, 47, 57, 0.3) 1px, transparent 1px),
-    radial-gradient(circle at 10% 60%, rgba(178, 58, 72, 0.3) 1px, transparent 1px);
-  background-size: 150px 150px, 200px 200px, 180px 180px, 160px 160px, 190px 190px, 170px 170px;
-  background-position: 0 0, 50px 50px, 100px 100px, 150px 150px, 200px 200px, 250px 250px;
-  animation: sparkle 20s linear infinite;
+  display: none;
 }
 
 @keyframes sparkle {
@@ -42,17 +39,7 @@ body {
 }
 
 body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                    radial-gradient(circle at 40% 40%, rgba(255,255,255,0.05) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: -1;
+  content: none;
 }
 
 /* Auth Pages */
@@ -61,50 +48,14 @@ body::before {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 20px;
+  padding: 40px 20px;
   position: relative;
   z-index: 1;
+  background: transparent;
 }
 
 .auth-left-panel {
   display: none;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 50%;
-  height: 100vh;
-  background: 
-    linear-gradient(135deg, rgba(254, 208, 187, 0.95) 0%, rgba(252, 185, 178, 0.95) 100%),
-    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(178,58,72,0.1);stop-opacity:1" /><stop offset="100%" style="stop-color:rgba(70,18,32,0.1);stop-opacity:1" /></linearGradient><radialGradient id="g2" cx="50%" cy="50%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.2);stop-opacity:1" /><stop offset="100%" style="stop-color:transparent;stop-opacity:1" /></radialGradient></defs><rect width="1200" height="800" fill="url(%23g1)"/><circle cx="200" cy="150" r="80" fill="url(%23g2)" opacity="0.6"/><circle cx="800" cy="300" r="120" fill="url(%23g2)" opacity="0.4"/><circle cx="1000" cy="600" r="100" fill="url(%23g2)" opacity="0.5"/><path d="M100 400 Q300 200 500 400 T900 400" stroke="rgba(178,58,72,0.15)" stroke-width="2" fill="none"/><path d="M150 600 Q350 400 550 600 T950 600" stroke="rgba(140,47,57,0.15)" stroke-width="2" fill="none"/><ellipse cx="600" cy="200" rx="150" ry="80" fill="rgba(252,185,178,0.2)"/><ellipse cx="400" cy="650" rx="120" ry="60" fill="rgba(254,208,187,0.2)"/></svg>');
-  background-size: cover;
-  background-position: center;
-  background-blend-mode: overlay;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.auth-left-panel::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    radial-gradient(circle at 30% 40%, rgba(178, 58, 72, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 70% 60%, rgba(140, 47, 57, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 50% 80%, rgba(70, 18, 32, 0.08) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-.auth-left-panel::after {
-  content: '✨';
-  position: absolute;
-  top: 20%;
-  left: 15%;
-  font-size: 4rem;
-  opacity: 0.15;
-  animation: float 4s ease-in-out infinite;
 }
 
 @keyframes float {
@@ -113,16 +64,16 @@ body::before {
 }
 
 .auth-card {
-  background: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: var(--ft-card-bg);
+  backdrop-filter: var(--ft-card-blur);
+  -webkit-backdrop-filter: var(--ft-card-blur);
+  border: 1px solid var(--ft-border);
   padding: 3.5rem 3rem;
   border-radius: 28px;
   box-shadow: 
-    0 20px 60px rgba(70, 18, 32, 0.15),
-    0 0 0 1px rgba(178, 58, 72, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    0 25px 70px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(255, 255, 255, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
   text-align: center;
   width: 100%;
   max-width: 480px;
@@ -150,7 +101,7 @@ body::before {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #461220, #8C2F39, #B23A48, #FCB9B2);
+  background: linear-gradient(90deg, #000000, #1c1c1c, #4f4f4f, #000000);
   border-radius: 28px 28px 0 0;
 }
 
@@ -161,7 +112,7 @@ body::before {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(178, 58, 72, 0.05) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.08) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -169,7 +120,7 @@ body::before {
   font-family: 'Playfair Display', serif;
   font-size: 2.8rem;
   margin-bottom: 0.5rem;
-  color: #461220;
+  color: var(--ft-text);
   font-weight: 600;
   line-height: 1.2;
   position: relative;
@@ -178,7 +129,7 @@ body::before {
 
 .auth-subtitle {
   font-size: 1.1rem;
-  color: #8C2F39;
+  color: var(--ft-muted);
   margin-bottom: 2.5rem;
   font-weight: 400;
   position: relative;
@@ -195,7 +146,7 @@ body::before {
 .form-label {
   display: block;
   margin-bottom: 0.8rem;
-  color: #461220;
+  color: var(--ft-text);
   font-weight: 500;
   font-size: 0.95rem;
 }
@@ -203,27 +154,27 @@ body::before {
 .auth-input {
   width: 100%;
   padding: 18px 20px;
-  border: 2px solid rgba(252, 185, 178, 0.4);
+  border: 2px solid var(--ft-border);
   border-radius: 20px;
   font-size: 1rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  background: rgba(255, 255, 255, 0.5);
-  color: #2B2B2B;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--ft-text);
   font-family: 'Inter', sans-serif;
   position: relative;
 }
 
 .auth-input::placeholder {
-  color: rgba(43, 43, 43, 0.5);
+  color: rgba(15, 15, 15, 0.4);
 }
 
 .auth-input:focus {
   outline: none;
-  border-color: #B23A48;
-  background: rgba(255, 255, 255, 0.7);
+  border-color: var(--ft-border-strong);
+  background: #ffffff;
   box-shadow: 
-    0 0 0 4px rgba(178, 58, 72, 0.15),
-    0 4px 12px rgba(178, 58, 72, 0.1);
+    0 0 0 4px rgba(0, 0, 0, 0.05),
+    0 4px 14px rgba(0, 0, 0, 0.1);
   transform: translateY(-1px);
 }
 
@@ -236,8 +187,8 @@ body::before {
 .auth-button {
   width: 100%;
   padding: 18px;
-  background: linear-gradient(135deg, #461220 0%, #8C2F39 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--ft-button-dark) 0%, var(--ft-button-light) 100%);
+  color: #ffffff;
   border: none;
   border-radius: 28px;
   font-size: 1.1rem;
@@ -249,7 +200,7 @@ body::before {
   position: relative;
   overflow: hidden;
   z-index: 1;
-  box-shadow: 0 4px 15px rgba(70, 18, 32, 0.3);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
 
 .auth-button::before {
@@ -269,8 +220,8 @@ body::before {
 
 .auth-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(70, 18, 32, 0.4);
-  background: linear-gradient(135deg, #8C2F39 0%, #B23A48 100%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(135deg, #1a1a1a 0%, #3a3a3a 100%);
 }
 
 .auth-button:active {
@@ -278,7 +229,7 @@ body::before {
 }
 
 .auth-link {
-  color: #B23A48;
+  color: var(--ft-text);
   cursor: pointer;
   text-decoration: none;
   font-weight: 500;
@@ -287,14 +238,14 @@ body::before {
 }
 
 .auth-link:hover {
-  color: #461220;
+  color: var(--ft-button-light);
   text-decoration: underline;
 }
 
 .footer-link {
   margin-top: 2rem;
   font-size: 0.9rem;
-  color: #8C2F39;
+  color: var(--ft-muted);
   position: relative;
   z-index: 1;
 }
@@ -311,13 +262,13 @@ body::before {
 .divider-line {
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(140, 47, 57, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.2), transparent);
 }
 
 .divider-text {
   padding: 0 1rem;
   font-size: 0.85rem;
-  color: #8C2F39;
+  color: var(--ft-muted);
   font-weight: 500;
 }
 
@@ -337,10 +288,10 @@ body::before {
   justify-content: center;
   gap: 0.5rem;
   padding: 14px 20px;
-  border: 2px solid rgba(252, 185, 178, 0.4);
+  border: 2px solid var(--ft-border);
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.5);
-  color: #461220;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--ft-text);
   font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
@@ -349,10 +300,10 @@ body::before {
 }
 
 .social-button:hover {
-  background: rgba(255, 255, 255, 0.7);
-  border-color: #B23A48;
+  background: #ffffff;
+  border-color: var(--ft-border-strong);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(178, 58, 72, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .social-button:active {
@@ -372,7 +323,7 @@ body::before {
   gap: 2rem;
   margin-top: 2rem;
   padding-top: 2rem;
-  border-top: 1px solid rgba(140, 47, 57, 0.2);
+  border-top: 1px solid var(--ft-border);
   position: relative;
   z-index: 1;
 }
@@ -382,14 +333,14 @@ body::before {
   align-items: center;
   gap: 0.5rem;
   font-size: 0.85rem;
-  color: #8C2F39;
+  color: var(--ft-muted);
   font-weight: 500;
 }
 
 .trust-icon {
   width: 16px;
   height: 16px;
-  color: #B23A48;
+  color: var(--ft-text);
   flex-shrink: 0;
 }
 
@@ -1044,19 +995,19 @@ body::before {
 @media (min-width: 1024px) {
   .auth-container {
     position: relative;
-    background: linear-gradient(135deg, rgba(254, 208, 187, 0.9) 0%, rgba(252, 185, 178, 0.9) 100%);
-    justify-content: flex-end;
-    padding-right: 5%;
+    background: transparent;
+    justify-content: center;
+    padding: 60px 40px;
   }
 
   .auth-left-panel {
-    display: block;
+    display: none;
   }
 
   .auth-card {
     max-width: 520px;
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: auto;
+    margin-right: auto;
     position: relative;
     z-index: 2;
   }
